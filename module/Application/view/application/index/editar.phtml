@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de Cadastro</title>
+</head>
+<body>
+    <h2>Editar Usuário: <?php echo $dados['usuario']; ?></h2>
+    <form action="/processar_atualizacao.php" method="post">
+        <label for="usuario">Usuário:</label>
+        <input type="text" id="usuario" name="usuario" value="<?php echo $dados['usuario']; ?>" required>
+        <br>
+        <label for="senha">Senha:</label>
+        <input type="password" id="senha" name="senha" required>
+        <br>
+        <label for="confirmar">Confirmar Senha:</label>
+        <input type="password" id="confirmar" name="confirmar" required>
+        <br>
+        <label for="email">E-mail:</label>
+        <input type="email" id="email" name="email" value="<?php echo $dados['email']; ?>" required>
+        <br>
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" value="<?php echo $dados['nome']; ?>" required>
+        <br>
+        <input type="hidden" value="<?php echo $dados['id'];?>" name="id">
+        <input type="submit" value="Atualizar">
+        <br>
+    </form>
+</body>
+</html>

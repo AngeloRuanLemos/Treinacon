@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de Cadastro</title>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+        td, th {
+            border: 1px solid black;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    <?php
+        $msg = "";
+        if(isset($_GET['msg']) AND $_GET['msg'] == 1){
+            $msg = "Usuário cadastrado com sucesso!";
+        } else if(isset($_GET['msg'])  AND $_GET['msg'] == 2){
+            $msg = "Usuário atualizado com sucesso!";
+        }else if (isset($_GET['msg'])  AND $_GET['msg'] == 3){
+            $msg = "Usuário deletado com sucesso!";
+        }else if (isset($_GET['msg'])  AND $_GET['msg'] == 4){
+            $msg = "Confirmação de senha incorreta.";
+        }
+    ?>
+    <h1><?php echo $msg ?></h1>
+    <h2>Lista de Usuário</h2>
+    <p><a href="http://localhost:8000/application/cadastro">Cadastrar Novo Usuário</a>
+    <br>
+    <table>
+        <tr>
+            <th>Nome</th>
+            <th>Usuário</th>
+            <th>Senha</th>
+            <th>E-mail</th>
+            <th>Atualizar</th>
+            <th>Excluir</th>
+        </tr>
+        <?php foreach ($usuarios as $usuario) { ?>
+            <tr>
+                <td><?php echo $usuario['nome']; ?></td>
+                <td><?php echo $usuario['usuario']; ?></td>
+                <td><?php echo $usuario['senha']; ?></td>
+                <td><?php echo $usuario['email']; ?></td>
+                <td><a href="editar?id=<?php echo $usuario['id']; ?>">Atualizar</a></td>
+                <td>
+                    <a href="/processar_delete.php?id=<?php echo $usuario['id']; ?>" onclick="return confirmarExclusao();">
+                        Excluir
+                    </a>
+                </td>
+            </tr>
+        <?php } ?>
+    </table>
+
+    <script>
+        function confirmarExclusao() {
+            return confirm("Tem certeza que deseja excluir este usuário?");
+        }
+    </script>
+</body>
+</html>

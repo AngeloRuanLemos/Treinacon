@@ -8,9 +8,18 @@
         table {
             border-collapse: collapse;
         }
+
         td, th {
             border: 1px solid black;
             padding: 5px;
+        }
+
+        .filter-box {
+            margin-bottom: 15px;
+        }
+
+        .hidden {
+            display: none;
         }
     </style>
 </head>
@@ -29,9 +38,14 @@
     ?>
     <h1><?php echo $msg ?></h1>
     <h2>Lista de Usuário</h2>
-    <p><a href="http://localhost:8000/application/cadastro">Cadastrar Novo Usuário</a>
-    <br>
-    <table>
+    <p><a href="http://localhost:8000/application/cadastro">Cadastrar Novo Usuário</a></p>
+
+    <div class="filter-box">
+        <label for="filtro">Filtrar por nome:</label>
+        <input type="text" id="filtro" name="filtro" oninput="filtrarTabela()">
+    </div>
+
+    <table id="tabela-usuarios">
         <tr>
             <th>Nome</th>
             <th>Usuário</th>
@@ -41,7 +55,7 @@
             <th>Excluir</th>
         </tr>
         <?php foreach ($usuarios as $usuario) { ?>
-            <tr>
+            <tr class="linha-usuario">
                 <td><?php echo $usuario['nome']; ?></td>
                 <td><?php echo $usuario['usuario']; ?></td>
                 <td><?php echo $usuario['senha']; ?></td>
@@ -59,6 +73,20 @@
     <script>
         function confirmarExclusao() {
             return confirm("Tem certeza que deseja excluir este usuário?");
+        }
+
+        function filtrarTabela() {
+            var filtro = document.getElementById('filtro').value.toUpperCase();
+            var linhas = document.getElementsByClassName('linha-usuario');
+
+            for (var i = 0; i < linhas.length; i++) {
+                var nome = linhas[i].getElementsByTagName('td')[0].innerText.toUpperCase();
+                if (nome.indexOf(filtro) > -1) {
+                    linhas[i].classList.remove('hidden');
+                } else {
+                    linhas[i].classList.add('hidden');
+                }
+            }
         }
     </script>
 </body>
